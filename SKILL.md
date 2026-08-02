@@ -1,23 +1,14 @@
 ---
-name: github-automation-skill
-description: Permet à l'agent d'automatiser la génération de fichiers, les commits et les pushs Git via Docker.
+name: n8n-skills-manager
+description: Skill d'automatisation et de gestion des workflows n8n, intégration Git et APIs.
 ---
 
-## Description
-Ce skill définit les capacités et les règles de sécurité permettant à un agent autonome de gérer un dépôt GitHub localisé sur le VPS.
+## Rules & Standards
+- Exporter les workflows au format JSON valide dans `/workflows`.
+- Ne jamais inclure de tokens, passwords ou clés d'API en dur dans les JSON ou les fichiers .md.
+- Utiliser l'API n8n ou le node Git natif pour l'historisation des changements.
 
-## Context & Environment
-- **OS Host :** Debian / Ubuntu VPS
-- **Runtime :** Docker (Alpine Git)
-- **Authentification :** SSH Mount (`~/.ssh/id_rsa`)
-- **Dépôt cible :** BOURGINEAlexandre/n8n-skills
-
-## Guidelines & Rules
-- Toujours vérifier le git status avant de commiter.
-- Utiliser des messages de commit explicites (feat:, fix:, docs:).
-- Ne jamais inclure de clés d'API ou de secrets dans le dépôt.
-
-## Step-by-Step Instructions
-1. Génération : Écrire ou mettre à jour le contenu cible dans SKILL.md.
-2. Inspection : Détecter s'il y a des modifications non commitées.
-3. Commit & Push : Effectuer git add, git commit et git push origin main.
+## Workflow Execution Steps
+1. **Trigger** : Déclenchement via Webhook, Cron ou événement Git.
+2. **Process** : Exécution des nodes n8n (Code JS/Python, HTTP Request, Transform).
+3. **Commit & Push** : Sauvegarde automatique du repo `n8n-skills` vers GitHub (`origin main`).
